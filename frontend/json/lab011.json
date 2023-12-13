@@ -1,0 +1,117 @@
+[
+    {
+        "id": 11,
+        "lab": "Lab-11",
+        "title": "Managing Access Controls in Windows Server",
+        "scenario": "In this activity, you will explore the use of different kinds of accounts for managing objects in Active Directory and the use of GPO to apply account policies.",
+        "objective": "Given a scenario, implement identity and account management controls.",
+        "url":[
+            {
+                "windows":"dummy"
+            }
+        ],
+        "activities": [
+            {
+                "id": 1,
+                "title": "Examine Administrator account properties",
+                "desciption": "Implement some Microsoft best practices for securing administrative accounts and learn how not-such-best-practice can compromise organizational security. First, examine the properties of the current Administrator account.",
+                "chekbox": true,
+                "questions": [
+                    {
+                        "id": 1,
+                        "question": "In Windows Powershell run a command to display the Security ID (SID) and other information for the current user. What are the final three digits of the administrator's SID?",
+                        "hint":"command : whoami /user  You can use the /all switch with whoami to display additional group and privilege information.",
+                        "answer": "500",
+                        "textbox": true
+                    },
+                    {
+                        "id": 2,
+                        "question": "Run the get-aduser cmdlet to display account information:",
+                        "command":"get-aduser -identity administrator -properties *",
+                        "textbox": false
+                    },
+                    {
+                        "id": 3,
+                        "question": "Run the get-aduser cmdlet to display account information Which of the following is the DistinguishedName for the Administrator account? (You may have to scroll up in PowerShell to display this information)",
+                        "hint":"get-aduser -identity administrator -properties *",
+                        "options":["515supportAdministrator",
+                        "administrator",
+                        "administrator.corp.515support.com",
+                        "root",
+                        "administrator@corp.515support.com",
+                        "CN=Administrator,CN=Users,DC=mydomain,DC=local",
+                        "500"],
+                        "textbox": false
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "title": "Manage user, group, and computer objects",
+                "desciption": "Active Directory stores and manages objects that represent common entities, such as user accounts or computers. You will manage users, groups, and computer objects in this activity.",
+                "chekbox": true,
+                "questions": [
+                    {
+                        "id": 1,
+                        "question": "Create a new Organizational Unit named ITAdmins in the mydomain.local domain",
+                        "hint":"In Server Manager, from the Tools menu, open the Active Directory Users and Computers console.",
+                        "textbox": false
+                    },
+                    {
+                        "id": 2,
+                        "question": "Create a new user named IT_Consultant in the ITAdmins OU.First name: Temp Last name: Contractor User login name: IT_Consultant Password: Pa$$w0rd",
+                        "hint":"Right-click the ITAdmins OU, select New, and select User.",
+                        "textbox": false
+                    },
+                    {
+                        "id": 3,
+                        "question": "Create a global security group within the ITAdmins OU and name it DesktopSupport and add IT_Consultant user to this group.",
+                        "textbox": false
+                    },
+                    {
+                        "id": 4,
+                        "question": "Create a new computer account named laptop01 in the Computers OU",
+                        "textbox": false
+                    },
+                    {
+                        "id": 5,
+                        "question": "Run a PowerShell cmdlet to generate a report of all computer objects in the domain.",
+                        "hint":"get-adcomputer -filter * | out-file C:/computers.txt",
+                        "textbox": false
+                    }
+                ]
+            },
+            {
+                "id": 3,
+                "title": "Modify an existing GPO to match password requirements",
+                "desciption": "Group Policy is a powerful tool enabling custom user and computer settings to be deployed to objects across Active Directory. Use the Group Policy Management console to examine the 515 Support Local Admin Policy.",
+                "chekbox": true,
+                "questions": [
+                    {
+                        "id": 1,
+                        "question": "Edit the Default Domain Policy",
+                        "hint":"In Server Manager, from the Tools menu open Group Policy Management Console,expand Forest > Domains > mydomain.local and right click the Default Domain Policy.",
+                        "textbox": false
+                    },
+                    {
+                        "id": 2,
+                        "question": "In the Group Policy Management console, expand Forest > Domains > corp.515support.com and select the Default Domain Policy.",
+                        "info":"The Default Domain Policy defines a single password policy for all members of the entire domain. Microsoft recommends that password management is the only use of the Default Domain Policy.",
+                        "textbox": false
+                    },
+                    {
+                        "id": 3,
+                        "question": "Browse to the Password Policy node and configure the Default Domain Policy to match your requirements",
+                        "textbox": false
+                    },
+                    {
+                        "id": 4,
+                        "question": "In the Administrator: Windows PowerShell window, run a command to produce a report of the password policy settings to updating configuration documentation:",
+                        "hint":"gpresult /H C:/passwords-gpresults.html",
+                        "textbox": false
+                    }
+                ]
+            }
+        ]
+    }
+]

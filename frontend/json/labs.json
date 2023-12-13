@@ -1,7 +1,7 @@
 [
     {
       "id": 1,
-      "lab": "Lab-01 - ttt",
+      "lab": "Lab-01",
       "title": "Scanning and Identifying Network Nodes",
       "scenario":"In this activity, you will use common network tools, such as local commands and the Nmap network mapper, to discover other hosts on the local network. Next, you will conduct a banner grabbing exercise to identify specific services on the hosts. Finally, you will use DNS tools to gather name resolution information. "
     },
@@ -16,5 +16,19 @@
       "lab": "Lab-03",
       "title": "Intercepting and Interpreting Network Traffic with Packet Sniffing Tool",
       "scenario":"In this activity you need to use common network tools, and local linux commands to discover host on the network"
+    },
+    {
+      "id": 7,
+      "lab": "Lab-07",
+      "title": "Managing the Life Cycle of a Certificate",
+      "scenario":"In this activity, you will explore the properties of different kinds of digital certificates and use Windows to request, issue, and revoke certificates."
+    },
+    {
+      "id": 11,
+      "lab": "Lab-11",
+      "title": "Managing Access Controls in Windows Server",
+      "scenario":"In this activity, you will explore the use of different kinds of accounts for managing objects in Active Directory and the use of GPO to apply account policies."
     }
+    
+
 ]

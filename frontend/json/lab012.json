@@ -1,0 +1,219 @@
+[
+    {
+        "id": 13,
+        "lab": "Lab-13",
+        "title": "Managing Access Controls in Linux",
+        "scenario": "In this activity, you will manage access controls on a Linux server. First, you will configure local users and groups on the system. Next, you will create directories and files to represent resources that need to be controlled. Next, you will configure the ownership of these directories and files. Finally, you'll configure standard Linux permissions to manage for the users and groups to access the directories and files.",
+        "objective": "This activity is designed to test your understanding of and ability to implement authentication and authorization solutions.",
+        "url":[
+            {
+                "Linux":"dummy"
+            }
+        ],
+        "activities": [
+            {
+                "id": 1,
+                "title": "Create users and groups",
+                "desciption": "You need to create two test users and two groups on the Linux virtual machine. You'll configure passwords for the two users, too.",
+                "chekbox": true,
+                "questions": [
+                    {
+                        "id": 1,
+                        "question": "Command to create a user named user01",
+                        "hint":"command : useradd user01",
+                        "answer": "useradd user01",
+                        "textbox": true
+                    },
+                    {
+                        "id": 2,
+                        "question": "Enter the command to set the password for the above user",
+                        "hint":"command : passwd user01",
+                        "answer": "passwd user01",
+                        "textbox": true
+                    },
+                    {
+                        "id": 3,
+                        "question": "Enter the command to create a user named user02",
+                        "hint":"command : useradd user02",
+                        "answer": "useradd user02",
+                        "textbox": true
+
+                        
+                    },
+                    {
+                        "id": 4,
+                        "question": "Enter the command to create a new group named admins",
+                        "hint":"command : groupadd",
+                        "answer": "useradd admins",
+                        "textbox": true
+
+                        
+                    },
+                    
+                    {
+                        "id": 5,
+                        "question": "Enter the command to create a new group named dev",
+                        "hint":"command : groupadd",
+                        "answer": "useradd dev",
+                        "textbox": true
+
+                        
+                    },
+                    {
+                        "id": 6,
+                        "question": "Now add the user01 to the admins group, enter the command which is used to perform the given task",
+                        "hint":"command : usermod -aG admins user01",
+                        "answer": "usermod -aG admins user01",
+                        "textbox": true
+
+                        
+                    },
+                    {
+                        "id": 7,
+                        "question": "Now add the user02 to the dev group, enter the command which is used to perform the given task",
+                        "hint":"command : usermod -aG dev user02",
+                        "answer": "usermod -aG dev user02",
+                        "textbox": true
+
+                        
+                    }
+                    
+
+                ]
+            },
+            {
+                "id": 2,
+                "title": "Creating directories and files",
+                "desciption": "Use the mkdir and touch commands to create directories and files to simulate resources that need to have permissions applied to them.",
+                "chekbox": true,
+                "questions": [
+                    {
+                        "id": 1,
+                        "question": "Create a directory named projects , enter the command to create the given directory",
+                        "hint":"command : mkdir /projects",
+                        "answer": "mkdir /projects",
+                        "textbox": true
+
+                        
+                    },
+                    {
+                        "id": 2,
+                        "question": "Create a sub directory named ITprojects in the above directory",
+                        "hint":"command : mkdir /projects/ITprojects",
+                        "answer": "mkdir /projects/ITprojects",
+                        "textbox": true
+
+                        
+                    },
+                    
+                    {
+                        "id": 3,
+                        "question": "Create a sub directory named devprojects in the projects directory",
+                        "hint":"command : mkdir /projects/devprojects",
+                        "answer": "mkdir /projects/devprojects",
+                        "textbox": true
+    
+                            
+                    },
+                   {
+                    "id": 4,
+                    "question": "What is the primary purpose of the TOUCH command in linux operating systems?",
+                    "options":["It creates a new directory",
+                    "It displays the contents of a text file.",
+                    " It updates the access and modification times of a file or creates an empty file.",
+                    "It renames files and directories."],
+                    "textbox": false
+                   },
+                   {
+                    "id": 5,
+                    "question": "Create a text file named servers.txt in the ITprojects directory, enter the command to perfrom the task",
+                    "hint":"command : touch /projects/ITprojects/servers.txt",
+                    "answer": "touch /projects/ITprojects/servers.txt",
+                    "textbox": true
+
+                        
+                    },
+                    {
+                        "id": 6,
+                        "question": "Create a text file named programming.txt in the devprojects directory, enter the command to perfrom the task",
+                        "hint":"command : touch /projects/devprojects/programming.txt",
+                        "answer": "touch /projects/devprojects/programming.txt",
+                        "textbox": true
+    
+                            
+                    }
+
+
+                    
+                ]
+            },
+            {
+                "id": 3,
+                "title": "Configuring the ownership",
+                "desciption": "By default, the creator of a resource owns the resource. Because you used to the root user account to create the directories and files in the previous activity, the root user controls access. You need to permit users and groups to own the directories and files so that they can configure permissions. ",
+                "chekbox": true,
+                "questions": [
+                    {
+                        "id": 1,
+                        "question": "Write the command to display the current default permissions on the contents of the /labs directory",
+                        "hint":"command : ls -ld /projects",
+                        "answer": "ls -ld /projects",
+                        "textbox": true
+    
+                            
+                    },
+                    {
+                        "id": 2,
+                        "question": "Enter The command to change the ownership from root to the sepcified users and groups for the ITprojects directory",
+                        "hint":"command : chown -R user01:admins /projects/ITprojects",
+                        "answer": "chown -R user01:admins /projects/ITprojects",
+                        "textbox": true
+    
+                            
+                    },
+                    {
+                        "id": 3,
+                        "question": "Enter The command to change the ownership from root to the sepcified users and groups for the devprojects directory",
+                        "hint":"command : chown -R user02:devs /projects/devprojects",
+                        "answer": "chown -R user02:devs /projects/devprojects",
+                        "textbox": true
+    
+                            
+                    },
+                    {
+                        "id": 4,
+                        "question": "Enter The command to display the user and group associations for the /projects/ITprojects directory itself",
+                        "hint":"command : ls -ld /projects/ITprojects",
+                        "answer": "ls -ld /projects/ITprojects",
+                        "textbox": true
+    
+                            
+                    },
+                    {
+                        "id": 5,
+                        "question": "Enter The command to display the user and group associations for the contents of the /projects/ITprojects directory:",
+                        "hint":"command : ls -l /projects/ITprojects",
+                        "answer": "ls -l /projects/ITprojects",
+                        "textbox": true
+    
+                            
+                    },
+                    {
+                        "id": 6,
+                        "question": "Who is the owner and what group is associated with the /projects/ITprojects directory?",
+                        "options":["The user01 account and the admins group",
+                        "The user01 account and the devs group.",
+                        "The user02 account and the devs group.",
+                        "The user02 account and the admins group"],
+                        "textbox": false
+                    }
+                    
+                    
+
+
+                ]
+            }
+
+        ]
+    }
+]

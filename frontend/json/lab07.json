@@ -1,88 +1,456 @@
 [
-    {
-      "id": 1,
-      "lab": "Lab-01",
-      "title": "Scanning and Identifying Network Nodes",
-      "scenario":"In this activity, you will use common network tools, such as local commands and the Nmap network mapper, to discover other hosts on the local network. Next, you will conduct a banner grabbing exercise to identify specific services on the hosts. Finally, you will use DNS tools to gather name resolution information. ",
-      "objective":"This lab is desigined to test your understanding of and ability to apply appropriate tools to assess organizational security defined in CompTIA Security+ ",
-      "url":"https://novnc.com/noVNC/vnc.html",
-      "activities":[
-        {
-            "id":1,
-            "title":"Identify the network configuration",
-            "desciption":"Determine the configuration of the local host and its subnet, using tools such as ifconfig, ip, arp, netdiscover, and pathping. Run the scans from the KALI Linux VM.",
-            "chekbox":true,
-            "questions":[
-                {
-                   "id":1,
-                   "question":"What is the IP address for the eth0 adapter of the Kali Linux virtual machine? (answer format: 1.2.3.4)",
-                   "answer":"10.10.10.1",
-                   "textbox":true
-                },
-                {
-                    "id":2,
-                    "question":"What is the IP address of the router? (format 1.2.3.4)",
-                    "answer":"10.10.10.1",
-                    "textbox":true
-                },
-                {
-                    "id":3,
-                    "question":"What is the IP address for the DC1.corp.515support.com virtual machine? (format 1.2.3.4)",
-                    "answer":"10.10.10.1",
-                    "textbox":true
-                },
-                {
-                    "id":4,
-                    "question":"How many hosts were found by netdiscover?",
-                    "answer":"4",
-                    "textbox":true
-                },
-                {
-                    "id":5,
-                    "question":"What is the IP address for the DC1 virtual machine?",
-                    "answer":"10.10.10.1",
-                    "textbox":true
-                },
-                {
-                    "id":6,
-                    "question":"What percentage of packets were lost during this test? (Reply with values such as 0%, 50%, 100%, etc)",
-                    "answer":"20%",
-                    "textbox":true
-                }
-            ]
-        },
-        {
-            "id":2,
-            "title":"Use nmap to discover hosts",
-            "desciption":"From a penetration tester or threat actor perspective, network reconnaissance will typically aim to discover the following.",
-            "chekbox":true,
-            "questions":[
-                {
-                   "id":1,
-                   "question":"What port is open on the virtual machine? (443/tcp, 22/tcp, 80/tcp, 53/udp, 161/udp)",
-                   "answer":"22/tcp",
-                   "textbox":true
-                },
-                {
-                    "id":2,
-                    "question":"What services are running on this virtual machine (the router)? (Email and file transfer services, SSH and web services, SSH and DNS services, Web and email services) ",
-                    "answer":"SSH and web services",
-                    "textbox":true
-                },
-                {
-                    "id":3,
-                    "question":"What operating system is running on the 10.1.0.254 host? (Linux, Windows 10, macOS, Windows Server, MS-DOS)",
-                    "answer":"Linux",
-                    "textbox":true
-                },
-                {
-                    "id":4,
-                    "question":"Which server is configured as an email server? (Hint: you'll need to look for the default SMTP port number in the 'Ports used' field of each host) (PC1, LX1, MS1, RT1-Internal, DC1)",
-                    "answer":"DC1",
-                    "textbox":true
-                }
-            ]
-        }
-      ]
-    }
-  ]
+  {
+    "id": "7",
+    "lab": "Lab-07",
+    "title": "Managing the Life Cycle of a Certificate",
+    "scenario": "In this activity, you will explore the properties of different kinds of digital certificates and use Windows to request, issue, and revoke certificates.",
+    "objective": "This activity is designed to test your understanding of and ability to apply content examples in the following CompTIA Security+ objectives: 3.9 Given a scenario, implement public key infrastructure.",
+    "activities": [
+      {
+        "id": "1",
+        "title": "Browse Certificate Server properties",
+        "description": "In the first part of this activity, you will examine the certificate server. Open Certificate Services on DC1 and locate the root certificate.",
+        "questions": [
+          {
+            "type": "inst",
+            "text": "On the DC1 VM, select Ctrl+Alt+Delete , and then sign in as 515support Administrator with the password Pa$$w0rd",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "In Server Manager, select Tools→Certification Authority.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "text",
+            "text": "Right-click the server (515support-CA) and select Properties.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "On the General tab, note the root certificate (Certificate #0).",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "mcq",
+            "text": "Which of the following is the identity of the cryptographic provider?",
+            "options": [
+              "Microsoft Platform Crypto Provider",
+              "Microsoft Smart Card Key Storage Provider",
+              "Microsoft Software Key Storage Provider"
+            ],
+            "answer": "Microsoft Software Key Storage Provider",
+            "info": "",
+            "image": "The root certificate"
+          },
+          {
+            "type": "inst",
+            "text": "Select the View Certificate button.",
+            "answer": "",
+            "info": "This is the CA server's proof of identity. Note that it is self-signed (issued to itself by itself) because this is the root certification authority. If you were to create subordinate CAs, they would be issued with certificates signed by this server.",
+            "image": false
+          },
+          {
+            "type": "mcq",
+            "text": "What is the purpose of this certificate? (Choose two)",
+            "options": [
+              "Proves your identity to a remote computer",
+              "All issuance policies",
+              "All application policies",
+              "Ensures the identity of a remote computer"
+            ],
+            "answer": "All issuance policies,All application policies",
+            "info": "A CA has been installed with the DC to minimize the number of VMs required for the labs. This configuration is NOT something that should ever be done in a production environment. A root CA must be installed to a standalone server with no other roles configured on it. The root CA is very commonly kept offline, except when signing or revocation actions have to be performed. The task of issuing certificates is delegated to an intermediate CA (but again that should not be installed on the same machine as the DC).",
+            "image": "Certificate purpose"
+          },
+          {
+            "type": "inst",
+            "text": "Close the Certificate window, and then select Cancel to close the 515support-CA Properties window.",
+            "answer": "",
+            "info": "It is a good practice to Cancel configuration boxes to close them, rather than selecting OK and implementing an inadvertant change.",
+            "image": false
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "title": "Browse Certificate Services components",
+        "description": "Browse the components used to issue and revoke certificates.",
+        "questions": [
+          {
+            "type": "inst",
+            "text": "In the Certification Authority console, expand the server 515support-CA to view the subfolders.",
+            "answer": "",
+            "info": "Note that there are folders for revoked and issued certificates and pending and failed requests.",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "Select Issued Certificates. The domain controller certificates issued to the host server are displayed.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "Select the certificate with the most current Certificate Effective Date, and then right-click this certificate and select Open.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "mcq",
+            "text": "Who is the certificate issued by?",
+            "options": [
+              "Microsoft Root CA",
+              "Google Root CA",
+              "515support-CA",
+              "corp.515support.com-CA"
+            ],
+            "answer": "515support-CA",
+            "info": "",
+            "image": "Certificate"
+          },
+          {
+            "type": "inst",
+            "text": "Select OK to close the Certificate dialog box.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "Select the Certificate Templates folder.",
+            "answer": "",
+            "info": "It may take several seconds for the Certificate Templates folder to populate. This snap-in shows the various kinds of certificates that can be issued, such as for server authentication, user authentication, and other specialist uses. As well as different usage profiles, certificate templates can represent different ways of allowing subjects to be enrolled with that type of certificate.",
+            "image": false
+          },
+          {
+            "type": "mcq",
+            "text": "Which of the following templates should you choose if you need to configure Server Authentication?",
+            "options": [
+              "Subordinate Certification Authority",
+              "Domain Controller",
+              "Web Server",
+              "Basic EFS"
+            ],
+            "answer": "Web Server",
+            "info": "",
+            "image": "Available templates"
+          },
+          {
+            "type": "mcq",
+            "text": "What certificate provides Encrypting File System, Secure Email, Client Authentication for employee accounts?",
+            "options": [
+              "Computer",
+              "Kerberos Authentication",
+              "Web Server",
+              "User"
+            ],
+            "answer": "User",
+            "info": "",
+            "image": "Available templates2"
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "title": "Request a server certificate",
+        "description": "In the next part of this activity, you will request a certificate for the MS1 member server and use it to configure a secure web service. You will then explore options for revoking the certificate. In this step, use IIS Manager on the MS1 VM to request a new certificate.",
+        "questions": [
+          {
+            "type": "inst",
+            "text": "Select the MS1 VM, select Ctrl+Alt+Delete, and then sign in as : 515support Administrator with the password Pa$$w0rd",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "In Server Manager, select Tools→Internet Information Services (IIS) Manager.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "In the Connections pane, select the MS1 server icon. In the Home pane, open the Server Certificates applet.",
+            "answer": "",
+            "info": "",
+            "image": "Server Certificates applet"
+          },
+          {
+            "type": "mcq",
+            "text": "In the Actions pane, select Create Domain Certificate. Complete the Create Certificate wizard by entering the following information:",
+            "options": [
+              "Common Name: updates.corp.515support.com",
+              "Organization: 515support",
+              "Organizational unit: Web services",
+              "City/locality",
+              "State/province",
+              "Country/region your location"
+            ],
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "Select Next.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "On the Online Certification Authority page, select the Select button, then select 515support-CA and select OK.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "text",
+            "text": "In the Friendly name box, type updates.corp.515support.com Domain-issued Certificate. Select Finish.",
+            "answer": "",
+            "info": "After a few seconds, the certificate request will be granted.",
+            "image": false
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "title": "Bind certificate to HTTPS port",
+        "description": "Bind the certificate to a secure HTTPS port on a website.",
+        "questions": [
+          {
+            "type": "inst",
+            "text": "In IIS Manager, expand the server, then Sites to show the Default Web Site node. Right-click Default Web Site and select Edit Bindings.",
+            "answer": "",
+            "info": "",
+            "image": "Bind a certificate"
+          },
+          {
+            "type": "inst",
+            "text": "Select the Add button.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "In the Add Site Binding dialog box, from the Type box, select https.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "text",
+            "text": "In the Host name box, type:  updates.corp.515support.com",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "From the SSL certificate box, select updates.corp.515support.com Domain-issued certificate.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "Select OK.",
+            "answer": "",
+            "info": "",
+            "image": "The SSL certificate"
+          },
+          {
+            "type": "inst",
+            "text": "In the Site Bindings dialog box, select the http entry, then select Remove. Confirm by selecting Yes. Select the Close button.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "Switch to the DC1 VM and observe the Web Server certificate in the Issued Certificates folder.",
+            "answer": "",
+            "info": "The Policy Module tab in the CA server properties dialog box is used to configure whether all certificates must be manually approved or not. Individual certificate templates can be set to auto-issue or require administrator approval.",
+            "image": false
+          },
+          {
+            "type": "mcq",
+            "text": "Which certificate template was used?",
+            "options": [
+              "Computer",
+              "Basic EFS",
+              "Web Server",
+              "Domain Controller"
+            ],
+            "answer": "Web Server",
+            "info": "",
+            "image": "The SSL certificate2"
+          },
+          {
+            "type": "mcq",
+            "text": "What is the validity period?",
+            "options": [
+              "One year",
+              "Two years",
+              "Three years",
+              "Four years"
+            ],
+            "answer": "Two years",
+            "info": "",
+            "image": "Certificate properties"
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "title": "Test secure web services",
+        "description": "Test the certificate by browsing the website from the PT1-Kali VM.",
+        "questions": [
+          {
+            "type": "inst",
+            "text": "Select the PT1-Kali VM and sign in as root with the password Pa$$w0rd",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "Use the Firefox web browser to connect to https://updates.corp.515support.com.",
+            "answer": "",
+            "info": "The 515 Support User Portal page should show correctly.Kali doesn't trust the certificate. Firefox has a list of pre-configured trusted root certificates, and the 515 Support CA is not on that list. Root Certificate Authorities an be added to the browser.If you try to connect to the server using an incorrect link, an error is displayed because the URL would not match the subject name configured in the certificate. For example, an attempt to connect to https://MS1.corp.515support.com will fail.",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "Navigate through the interface to accept the risk of connecting to a site with an untrusted root certificate.",
+            "answer": "",
+            "info": "",
+            "image": "Accepting the risk"
+          },
+          {
+            "type": "inst",
+            "text": "To the left of the https://updates.corp.515support.com URL, select the padlock icon to display certificate information.",
+            "answer": "",
+            "info": "Expand the message for more information on the certificate.",
+            "image": false
+          },
+          {
+            "type": "mcq",
+            "text": "Is your connection to the server encrypted?",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "answer": "Yes",
+            "info": "Connection information: The padlock and HTTPS protocol specification indicate the connection is encrypted.",
+            "image": false
+          },
+          {
+            "type": "mcq",
+            "text": "What is the identity of the Certificate Authority that identifies the site?",
+            "options": [
+              "Microsoft Certificate Authority",
+              "515support-CA",
+              "corp.515upport-CA"
+            ],
+            "answer": "515support-CA",
+            "info": "",
+            "image": "Connection information"
+          },
+          {
+            "type": "inst",
+            "text": "Close the browser.",
+            "answer": "",
+            "info": "",
+            "image": false
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "title": "Revoke certificate",
+        "description": "Use DC1 to revoke the certificate and observe the effect on browsing the site.",
+        "questions": [
+          {
+            "type": "inst",
+            "text": "Switch to the DC1 VM and observe the web server certificate in the Issued Certificates folder. Right-click the certificate and select All Tasks→Revoke Certificate.",
+            "answer": "",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "From the Reason code box, select Cease of Operation. Leave the date and time set to the current time and select Yes to confirm.",
+            "answer": "",
+            "info": "If you were to right-click the Revoked Certificates folder and select Properties, you would see that the next publication of a delta CRL is set for the next day.If you were to return to the web client and attempt a new HTTPS connection, it will still succeed. There is no certificate warning displayed because the updated CRL has not yet been published. If you want to revoke certificates very quickly, you have to configure the CRL publishing periods before you issue certificates. The problem with publishing CRLs more often is that it consumes more bandwidth and slows down client access.",
+            "image": false
+          },
+          {
+            "type": "inst",
+            "text": "Close the certsrv console.",
+            "answer": "",
+            "info": "",
+            "image": false
+          }
+        ]
+      },
+      {
+        "id": "7",
+        "title": "Comprehensive questions",
+        "description": "Answer the following final comprehensive questions to ensure that you recognize the importance of the activity steps and the uses for the information you have learned.",
+        "questions": [
+          {
+            "type": "mcq",
+            "text": "Which of the following best describes the activities in this exercise?",
+            "options": [
+              "Viewed the CA structure requested a certificate for IIS bound the certificate with the Default Web Site verified connectivity with HTTPS and then revoked the certificate",
+              "Deployed an SSL certificate to IIS to provide HTTP connectivity verified the HTTP connection revoked the certificate and then proved the connection was no longer secure",
+              "Installed Windows Certificate Services created a self-signed certificate and deployed subordinate certificate authorities"
+            ],
+            "answer": "Viewed the CA structure requested a certificate for IIS bound the certificate with the Default Web Site verified connectivity with HTTPS and then revoked the certificate",
+            "info": "",
+            "image": false
+          },
+          {
+            "type": "mcq",
+            "text": "Based on the above configurations, are HTTP connections still permitted to the Default Web Site?",
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "answer": "No",
+            "info": "",
+            "image": false
+          }
+        ]
+      },
+      {
+        "id": "8",
+        "title": "Grade Lab",
+        "description": "That concludes this lab. When you have finished a lab, please ensure you end it properly rather than just closing the browser window.",
+        "questions": [
+          {
+            "type": "inst",
+            "text": "Select Submit below to grade the lab. Once you select Submit, you will not be able to return to the lab environment.",
+            "answer": "",
+            "info": "",
+            "image": false
+          }
+        ]
+      }
+    ]
+  }
+]
